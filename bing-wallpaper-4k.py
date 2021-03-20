@@ -31,7 +31,10 @@ def move_img(url):
             r = json.loads(response)['images'][0]
             name = r['copyright'].replace('/','-')
             if i[:-4] != name:
-                shutil.move(j, dirt+'history')
+                try:
+                    shutil.move(j, dirt+'history')
+                except:
+                    os.remove(j)
                 return 1
             
 def save_img():
