@@ -13,7 +13,7 @@ def down_img(url):
     response = requests.get(url,proxies=proxies).text
     r = json.loads(response)['images'][0]
     url = re.findall('(.*?)&',r['url'])[0]
-    name = r['copyright'].replace('/','-')
+    name = r['copyright'].replace('\\','-').replace('/','-').replace(':','：').replace('*','-').replace('?','-').replace('"',"'").replace('<','-').replace('>','-').replace('|','-')
     print(url)
     print(name)
     url = 'https://cn.bing.com'+url
@@ -29,7 +29,7 @@ def move_img(url):
         if len(filelist) == 1 or os.path.isfile(j):
             response = requests.get(url,proxies=proxies).text
             r = json.loads(response)['images'][0]
-            name = r['copyright'].replace('/','-')
+            name = r['copyright'].replace('\\','-').replace('/','-').replace(':','：').replace('*','-').replace('?','-').replace('"',"'").replace('<','-').replace('>','-').replace('|','-')
             if i[:-4] != name:
                 try:
                     shutil.move(j, dirt+'history')
